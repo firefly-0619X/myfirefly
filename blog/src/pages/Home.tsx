@@ -1,14 +1,28 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { ArrowRight, TrendingUp, BookOpen, Heart, Zap } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { getPosts } from '@/data/posts'
 import { PostCard } from '@/components/PostCard'
+import type { Post } from '@/data/posts'
 
 export function Home() {
-  const featuredPosts = getPosts().slice(0, 3)
-  const recentPosts = getPosts().slice(0, 6)
+  const [posts, setPosts] = useState<Post[]>(getPosts())
+
+  // 监听 localStorage 变化
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setPosts(getPosts())
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
+
+  const featuredPosts = posts.slice(0, 3)
+  const recentPosts = posts.slice(0, 6)
 
   return (
     <div className="min-h-screen pt-16">

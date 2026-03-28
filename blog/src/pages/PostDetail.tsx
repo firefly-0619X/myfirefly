@@ -1,13 +1,28 @@
 import { Link, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { ArrowLeft, Calendar, Clock, User, Share2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { getPosts } from '@/data/posts'
+import type { Post } from '@/data/posts'
 
 export function PostDetail() {
   const { id } = useParams<{ id: string }>()
-  const post = getPosts().find((p) => p.id === id)
+  const [post, setPost] = useState<Post | undefined>(() => getPosts().find((p) => p.id === id))
+  const [allPosts, setAllPosts] = useState<Post[]>(getPosts())
+
+  // 监听 localStorage 变化
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newPosts = getPosts()
+      setAllPosts(newPosts)
+      setPost(newPosts.find((p) => p.id === id))
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [id])
 
   if (!post) {
     return (
@@ -22,8 +37,8 @@ export function PostDetail() {
     )
   }
 
-  const relatedPosts = getPosts()
-    .filter((p: any) => p.id !== post.id && p.category === post.category)
+  const relatedPosts = allPosts
+    .filter((p: Post) => p.id !== post.id && p.category === post.category)
     .slice(0, 3)
 
   return (

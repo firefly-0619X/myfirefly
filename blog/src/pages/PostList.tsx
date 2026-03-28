@@ -1,13 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
 import { categories, getPosts } from '@/data/posts'
 import { PostCard } from '@/components/PostCard'
+import type { Post } from '@/data/posts'
 
 export function PostList() {
   const [selectedCategory, setSelectedCategory] = useState('全部')
   const [searchQuery, setSearchQuery] = useState('')
+  const [posts, setPosts] = useState<Post[]>(getPosts())
 
-  const filteredPosts = getPosts().filter((post) => {
+  // 监听 localStorage 变化
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setPosts(getPosts())
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
+
+  const filteredPosts = posts.filter((post) => {
     const matchesCategory = selectedCategory === '全部' || post.category === selectedCategory
     const matchesSearch =
       searchQuery === '' ||
