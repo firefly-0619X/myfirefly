@@ -40,7 +40,7 @@ export const author: Author = {
   education: '计算机科学与技术专业本科生',
   growth: '持续学习成长中',
   skills: {
-    C++:'略懂',
+    Cpp:'略懂',
     Java:'略懂',
     Python:'略懂',
     Docker:'略懂',
