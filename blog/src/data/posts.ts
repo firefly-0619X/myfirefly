@@ -11,7 +11,56 @@ export interface Post {
   coverImage?: string
 }
 
-export const posts: Post[] = [
+// 从 localStorage 加载用户创建的文章
+const loadUserPosts = (): Post[] => {
+  const stored = localStorage.getItem('blog_user_posts')
+  if (stored) {
+    try {
+      return JSON.parse(stored)
+    } catch (e) {
+      console.error('Failed to parse user posts from storage', e)
+    }
+  }
+  return []
+}
+
+// 保存用户创建的文章到 localStorage
+const saveUserPosts = (posts: Post[]) => {
+  localStorage.setItem('blog_user_posts', JSON.stringify(posts))
+}
+
+// 添加用户文章
+export const addUserPost = (post: Post) => {
+  const userPosts = loadUserPosts()
+  userPosts.push(post)
+  saveUserPosts(userPosts)
+}
+
+// 更新用户文章
+export const updateUserPost = (post: Post) => {
+  const userPosts = loadUserPosts()
+  const index = userPosts.findIndex(p => p.id === post.id)
+  if (index !== -1) {
+    userPosts[index] = post
+    saveUserPosts(userPosts)
+  }
+}
+
+// 删除用户文章
+export const deleteUserPost = (id: string) => {
+  const userPosts = loadUserPosts()
+  const filtered = userPosts.filter(p => p.id !== id)
+  saveUserPosts(filtered)
+}
+
+// 获取所有文章（默认文章 + 用户创建的文章）
+export const getPosts = (): Post[] => {
+  const userPosts = loadUserPosts()
+  return [...defaultPosts, ...userPosts]
+}
+
+// 默认文章
+const defaultPosts: Post[] = [
   {
     id: '1',
     title: '深入理解 React Hooks',
@@ -79,6 +128,9 @@ export const posts: Post[] = [
     readTime: '7 分钟'
   }
 ]
+
+// 保持向后兼容
+export const posts = getPosts()
 
 export const categories = [
   '全部',

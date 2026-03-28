@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Dialog } from '@/components/ui/dialog'
-import { posts } from '@/data/posts'
+import { addUserPost, updateUserPost, deleteUserPost, getPosts } from '@/data/posts'
 import type { Post } from '@/data/posts'
 
 export function Editor() {
@@ -35,15 +35,20 @@ export function Editor() {
 
   const handleSavePost = () => {
     if (!editingPost) return
-    console.log('保存文章:', editingPost)
-    alert('文章已保存！(实际应用中这里会保存到后端)')
+    // 检查是否是新建的文章（时间戳ID表示新建）
+    if (!editingPost.id || editingPost.id === String(Date.now())) {
+      addUserPost(editingPost)
+    } else {
+      updateUserPost(editingPost)
+    }
+    alert('文章已保存！')
     setEditingPost(null)
   }
 
   const handleDeletePost = (id: string) => {
     if (confirm('确定要删除这篇文章吗？')) {
-      console.log('删除文章:', id)
-      alert('文章已删除！(实际应用中这里会从后端删除)')
+      deleteUserPost(id)
+      alert('文章已删除！')
     }
   }
 
@@ -212,7 +217,7 @@ export function Editor() {
           </Card>
         ) : (
           <div className="space-y-4">
-            {posts.map((post) => (
+            {getPosts().map((post) => (
               <Card key={post.id} className="hover-lift cursor-pointer">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between gap-4">

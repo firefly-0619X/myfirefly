@@ -3,11 +3,11 @@ import { ArrowLeft, Calendar, Clock, User, Share2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { posts } from '@/data/posts'
+import { getPosts } from '@/data/posts'
 
 export function PostDetail() {
   const { id } = useParams<{ id: string }>()
-  const post = posts.find((p) => p.id === id)
+  const post = getPosts().find((p) => p.id === id)
 
   if (!post) {
     return (
@@ -22,8 +22,8 @@ export function PostDetail() {
     )
   }
 
-  const relatedPosts = posts
-    .filter((p) => p.id !== post.id && p.category === post.category)
+  const relatedPosts = getPosts()
+    .filter((p: any) => p.id !== post.id && p.category === post.category)
     .slice(0, 3)
 
   return (

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Search } from 'lucide-react'
-import { categories, posts } from '@/data/posts'
+import { categories, getPosts } from '@/data/posts'
 import { PostCard } from '@/components/PostCard'
 
 export function PostList() {
   const [selectedCategory, setSelectedCategory] = useState('全部')
   const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredPosts = posts.filter((post) => {
+  const filteredPosts = getPosts().filter((post) => {
     const matchesCategory = selectedCategory === '全部' || post.category === selectedCategory
     const matchesSearch =
       searchQuery === '' ||

@@ -3,12 +3,12 @@ import { ArrowRight, TrendingUp, BookOpen, Heart, Zap } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { posts } from '@/data/posts'
+import { getPosts } from '@/data/posts'
 import { PostCard } from '@/components/PostCard'
 
 export function Home() {
-  const featuredPosts = posts.slice(0, 3)
-  const recentPosts = posts.slice(0, 6)
+  const featuredPosts = getPosts().slice(0, 3)
+  const recentPosts = getPosts().slice(0, 6)
 
   return (
     <div className="min-h-screen pt-16">
