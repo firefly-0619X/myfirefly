@@ -126,21 +126,21 @@ export function About() {
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold mb-2 text-base">前端</h4>
+                  <h4 className="font-semibold mb-2 text-base">编程语言</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {currentAuthor.skills.frontend}
+                    C++: {currentAuthor.skills.cpp} | Java: {currentAuthor.skills.java} | Python: {currentAuthor.skills.python}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2 text-base">后端</h4>
+                  <h4 className="font-semibold mb-2 text-base">开发工具</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {currentAuthor.skills.backend}
+                    Docker: {currentAuthor.skills.docker} | Git: {currentAuthor.skills.git} | Linux: {currentAuthor.skills.linux}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2 text-base">DevOps</h4>
+                  <h4 className="font-semibold mb-2 text-base">算法基础</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {currentAuthor.skills.devops}
+                    算法: {currentAuthor.skills.algorithm} | 数据结构: {currentAuthor.skills.dataStructure}
                   </p>
                 </div>
               </div>

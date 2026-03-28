@@ -38,11 +38,14 @@ export function ProfileEditor() {
   const handleInputChange = (field: string, value: string, subField?: string) => {
     setFormData(prev => {
       if (subField) {
-        return {
-          ...prev,
-          [field]: {
-            ...prev[field as keyof Author],
-            [subField]: value
+        const fieldValue = prev[field as keyof Author]
+        if (typeof fieldValue === 'object' && fieldValue !== null) {
+          return {
+            ...prev,
+            [field]: {
+              ...fieldValue,
+              [subField]: value
+            }
           }
         }
       }
@@ -200,27 +203,75 @@ export function ProfileEditor() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">前端技术</label>
+              <label className="block text-sm font-medium mb-2">C++</label>
               <Input
-                value={formData.skills.frontend}
-                onChange={(e) => handleInputChange('skills', e.target.value, 'frontend')}
-                placeholder="例如: React, TypeScript, Vue.js"
+                value={formData.skills.cpp}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'cpp')}
+                placeholder="例如: 熟悉/略懂/了解"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">后端技术</label>
+              <label className="block text-sm font-medium mb-2">Java</label>
               <Input
-                value={formData.skills.backend}
-                onChange={(e) => handleInputChange('skills', e.target.value, 'backend')}
-                placeholder="例如: Node.js, Python, Go"
+                value={formData.skills.java}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'java')}
+                placeholder="例如: 熟悉/略懂/了解"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">DevOps</label>
+              <label className="block text-sm font-medium mb-2">Python</label>
               <Input
-                value={formData.skills.devops}
-                onChange={(e) => handleInputChange('skills', e.target.value, 'devops')}
-                placeholder="例如: Docker, Kubernetes, AWS"
+                value={formData.skills.python}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'python')}
+                placeholder="例如: 熟悉/略懂/了解"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Docker</label>
+              <Input
+                value={formData.skills.docker}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'docker')}
+                placeholder="例如: 熟悉/略懂/了解"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">GitHub</label>
+              <Input
+                value={formData.skills.github}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'github')}
+                placeholder="例如: 熟悉/略懂/了解"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Git</label>
+              <Input
+                value={formData.skills.git}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'git')}
+                placeholder="例如: 熟悉/略懂/了解"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Linux</label>
+              <Input
+                value={formData.skills.linux}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'linux')}
+                placeholder="例如: 熟悉/略懂/了解"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">算法</label>
+              <Input
+                value={formData.skills.algorithm}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'algorithm')}
+                placeholder="例如: 熟悉/略懂/了解"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">数据结构</label>
+              <Input
+                value={formData.skills.dataStructure}
+                onChange={(e) => handleInputChange('skills', e.target.value, 'dataStructure')}
+                placeholder="例如: 熟悉/略懂/了解"
               />
             </div>
           </CardContent>
