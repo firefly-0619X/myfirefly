@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Save, X, Plus, Trash2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -17,6 +17,16 @@ export function Editor() {
   const [editingPost, setEditingPost] = useState<Post | null>(null)
   const [newTag, setNewTag] = useState('')
   const [posts, setPosts] = useState<Post[]>(getPosts())
+
+  // 监听 localStorage 变化
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setPosts(getPosts())
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   const handleCreatePost = () => {
     const newPost: Post = {
