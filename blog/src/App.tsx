@@ -8,6 +8,7 @@ import { About } from '@/pages/About'
 import { Editor } from '@/pages/Editor'
 import { ProfileEditor } from '@/pages/ProfileEditor'
 import { Login } from '@/pages/Login'
+import { TestStorage } from '@/pages/TestStorage'
 import { useEffect, useState } from 'react'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -105,6 +106,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/test" element={<TestStorage />} />
           </Routes>
         </main>
         <Footer />
