@@ -21,7 +21,18 @@ export function PostDetail() {
     }
 
     window.addEventListener('storage', handleStorageChange)
-    return () => window.removeEventListener('storage', handleStorageChange)
+
+    // 同一标签页内轮询检查
+    const interval = setInterval(() => {
+      const newPosts = getPosts()
+      setAllPosts(newPosts)
+      setPost(newPosts.find((p) => p.id === id))
+    }, 2000)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      clearInterval(interval)
+    }
   }, [id])
 
   if (!post) {

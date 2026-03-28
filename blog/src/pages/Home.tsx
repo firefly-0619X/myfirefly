@@ -18,7 +18,16 @@ export function Home() {
     }
 
     window.addEventListener('storage', handleStorageChange)
-    return () => window.removeEventListener('storage', handleStorageChange)
+
+    // 同一标签页内轮询检查
+    const interval = setInterval(() => {
+      setPosts(getPosts())
+    }, 2000)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      clearInterval(interval)
+    }
   }, [])
 
   const featuredPosts = posts.slice(0, 3)
