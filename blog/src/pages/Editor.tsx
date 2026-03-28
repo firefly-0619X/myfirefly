@@ -44,7 +44,10 @@ export function Editor() {
     }
     // 刷新文章列表
     setPosts(getPosts())
-    alert('文章已保存！')
+    // 使用 setTimeout 让 UI 先更新
+    setTimeout(() => {
+      alert('文章已保存！')
+    }, 0)
     setEditingPost(null)
   }
 
