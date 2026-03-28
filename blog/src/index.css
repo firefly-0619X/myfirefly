@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 260 100% 67%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262.1 83.3% 57.8%;
+    --gradient-from: 262.1 83.3% 57.8%;
+    --gradient-to: 291.3 83.3% 57.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --primary: 262.1 83.3% 67.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 260 100% 77%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262.1 83.3% 67.8%;
+    --gradient-from: 262.1 83.3% 57.8%;
+    --gradient-to: 291.3 83.3% 57.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  * {
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    line-height: 1.2;
+  }
+
+  h2 {
+    line-height: 1.3;
+  }
+
+  h3 {
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    line-height: 1.5;
+  }
+
+  p {
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+  }
+
+  code, pre {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  }
+
+  input, textarea, button {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-[hsl(var(--gradient-from))] to-[hsl(var(--gradient-to))] bg-clip-text text-transparent;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-[hsl(var(--gradient-from))] to-[hsl(var(--gradient-to))];
+  }
+
+  .glass-effect {
+    @apply bg-white/95 dark:bg-gray-900/80 backdrop-blur-lg;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .prose-content {
+    @apply max-w-none leading-relaxed;
+  }
+
+  .prose-content h1,
+  .prose-content h2,
+  .prose-content h3 {
+    @apply font-serif font-semibold mt-8 mb-4;
+  }
+
+  .prose-content h1 {
+    @apply text-3xl;
+  }
+
+  .prose-content h2 {
+    @apply text-2xl;
+  }
+
+  .prose-content h3 {
+    @apply text-xl;
+  }
+
+  .prose-content p {
+    @apply mb-4 text-muted-foreground;
+  }
+
+  .prose-content ul,
+  .prose-content ol {
+    @apply mb-4 ml-6 list-disc;
+  }
+
+  .prose-content li {
+    @apply mb-2;
+  }
+}
