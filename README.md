@@ -1,4 +1,4 @@
-# 个人博客网站
+# 个人博客网站（试验版）
 
 一个使用 React + TypeScript + Vite + Tailwind CSS + shadcn/ui 构建的现代个人博客网站。
 
