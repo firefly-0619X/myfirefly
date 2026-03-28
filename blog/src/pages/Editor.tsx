@@ -16,6 +16,7 @@ export function Editor() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
   const [newTag, setNewTag] = useState('')
+  const [posts, setPosts] = useState<Post[]>(getPosts())
 
   const handleCreatePost = () => {
     const newPost: Post = {
@@ -35,12 +36,14 @@ export function Editor() {
 
   const handleSavePost = () => {
     if (!editingPost) return
-    // 检查是否是新建的文章（时间戳ID表示新建）
+    // 检查是否是新建的文章
     if (!editingPost.id || editingPost.id === String(Date.now())) {
       addUserPost(editingPost)
     } else {
       updateUserPost(editingPost)
     }
+    // 刷新文章列表
+    setPosts(getPosts())
     alert('文章已保存！')
     setEditingPost(null)
   }
@@ -48,6 +51,8 @@ export function Editor() {
   const handleDeletePost = (id: string) => {
     if (confirm('确定要删除这篇文章吗？')) {
       deleteUserPost(id)
+      // 刷新文章列表
+      setPosts(getPosts())
       alert('文章已删除！')
     }
   }
@@ -217,7 +222,7 @@ export function Editor() {
           </Card>
         ) : (
           <div className="space-y-4">
-            {getPosts().map((post) => (
+            {posts.map((post) => (
               <Card key={post.id} className="hover-lift cursor-pointer">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between gap-4">
